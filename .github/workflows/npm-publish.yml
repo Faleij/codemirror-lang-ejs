@@ -1,0 +1,49 @@
+name: Publish to npm
+
+on:
+  release:
+    types: [published]
+  push:
+    tags: ["v*.*.*"]
+
+# Never runs on pull_request — no publish credentials on forks/PRs.
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          registry-url: https://registry.npmjs.org
+
+      - name: Install
+        run: npm ci
+
+      - name: Build package
+        run: npm run prepare
+
+      - name: Compile tests
+        run: npm run test:compile
+
+      - name: Test
+        run: npm test
+
+      # Trusted Publishing (OIDC). No NPM_TOKEN required when configured on npmjs.com.
+      # Fallback: add a granular automation token as environment secret NPM_TOKEN on
+      # the "npm" GitHub Environment, then uncomment NODE_AUTH_TOKEN below.
+      - name: Publish
+        run: npm publish --provenance --access public
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

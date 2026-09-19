@@ -1,0 +1,1 @@
+export const Text: number, Content: number, CommentContent: number

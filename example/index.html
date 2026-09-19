@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@faleij/codemirror-lang-ejs playground</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#0f1115; --panel:#171a21; --text:#e8eaed; --muted:#9aa0a6; --border:#2a2f3a; }
+    @media (prefers-color-scheme: light) { :root { --bg:#f6f7f9; --panel:#fff; --text:#1f2328; --muted:#656d76; --border:#d0d7de; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); background: var(--panel); }
+    header h1 { margin: 0 0 0.35rem; font-size: 1.15rem; }
+    header p { margin: 0.25rem 0 0; color: var(--muted); font-size: 0.92rem; line-height: 1.45; max-width: 72rem; }
+    header code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.86em; }
+    #editor { height: calc(100vh - 10rem); }
+    .cm-editor { height: 100%; font-size: 14px; }
+    .cm-scroller { font-family: ui-monospace, Menlo, Consolas, monospace; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EJS language playground</h1>
+    <p>
+      <strong>Autocomplete</strong> (<code>Ctrl/Cmd-Space</code> or type):
+      after <code>item.</code> inside the loop you should see <code>html</code> / <code>id</code>.
+      <strong>Lint</strong>: yellow = undefined name; red = syntax issues only in brace-balanced tags
+      (cross-tag <code>if {</code> / <code>}</code> fragments are ignored).
+    </p>
+  </header>
+  <div id="editor"></div>
+  <script src="editor.bundle.js"></script>
+</body>
+</html>

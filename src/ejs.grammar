@@ -1,0 +1,31 @@
+@top Template { (Text | Tag)* }
+
+Tag {
+  EscapedOutput |
+  RawOutput |
+  Comment |
+  Scriptlet |
+  LiteralOpen |
+  LiteralClose
+}
+
+EscapedOutput { OpenEscaped Content Close }
+RawOutput { OpenRaw Content Close }
+Comment { OpenComment CommentContent Close }
+Scriptlet { OpenScript Content Close }
+
+@external tokens text from "./tokens" { Text }
+@external tokens content from "./tokens" { Content }
+@external tokens commentContent from "./tokens" { CommentContent }
+
+@tokens {
+  OpenEscaped { "<%=" }
+  OpenRaw { "<%-" }
+  OpenComment { "<%#" }
+  OpenScript { "<%_" | "<%" }
+  LiteralOpen { "<%%" }
+  LiteralClose { "%%>" }
+  Close { "-%>" | "_%>" | "%>" }
+}
+
+@detectDelim

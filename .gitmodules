@@ -1,0 +1,9 @@
+[submodule "ejs"]
+	path = ejs
+	url = git@github.com:mde/ejs.git
+[submodule "html"]
+	path = html
+	url = https://code.haverbeke.berlin/codemirror/lang-html.git
+[submodule "twig"]
+	path = twig
+	url = https://codeberg.org/danb/codemirror-lang-twig.git
